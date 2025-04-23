@@ -39,7 +39,7 @@ export const HomePage = () => {
         myHeaders.append('Content-Type', 'application/json');
 
         const raw = JSON.stringify({
-            redirectUrl: 'http://localhost:3001/auth/callback',
+            redirectUrl: 'http://34.10.196.166:3000/auth/callback',
         });
 
         const requestOptions: RequestInit = {
@@ -50,7 +50,7 @@ export const HomePage = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/auth/login', requestOptions);
+            const response = await fetch('http://34.10.196.166:3000/auth/login', requestOptions);
             const result = await response.json(); // ← aqui a gente faz o parse
             const { sessionId, loginUrl } = result;
 
