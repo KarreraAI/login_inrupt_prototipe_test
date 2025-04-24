@@ -54,7 +54,7 @@ export const HomePage = () => {
         
               try{
         
-                const response = await fetch("http://34.10.196.166:3000/auth/callback", requestOptions); 
+                const response = await fetch("/api/auth/callback", requestOptions); 
                 console.log("Dados recebidos do servidor:", response);
         
               } catch (error) {
@@ -85,8 +85,8 @@ export const HomePage = () => {
         };
 
         try {
-            const response = await fetch('http://34.10.196.166:3000/auth/login', requestOptions);
-            const result = await response.json(); // ← aqui a gente faz o parse
+            const response = await fetch('/api/auth/login', requestOptions);
+            const result = await response.json();
             const { sessionId, loginUrl } = result;
 
             console.log('Abrindo login em:', loginUrl);
