@@ -39,7 +39,7 @@ export const HomePage = () => {
         myHeaders.append('Content-Type', 'application/json');
 
         const raw = JSON.stringify({
-            redirectUrl: 'http://34.10.196.166:3000/auth/callback',
+            redirectUrl: window.location.origin + '/auth/callback',
         });
 
         const requestOptions: RequestInit = {
