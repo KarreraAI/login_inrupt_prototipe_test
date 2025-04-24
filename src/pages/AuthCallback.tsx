@@ -5,14 +5,16 @@ export const AuthCallback = () => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const state = params.get('state');
+    const iss = params.get('iss');
 
-    if (code && state && window.opener) {
+    if (code && state && iss && window.opener) {
       // Envia os dados para a aba principal
       window.opener.postMessage(
         {
           type: 'login-success',
           code,
           state,
+          iss
         },
         window.location.origin
       );
