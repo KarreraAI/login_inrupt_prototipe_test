@@ -8,20 +8,22 @@ export const AuthCallback = () => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const state = params.get('state');
-    const iss = params.get('iss');
-
+    // const iss = params.get('iss');
     const sessionId = localStorage.getItem('sessionId');
 
-    if (code && state && iss && sessionId) {
+    if (code && state && sessionId) {
       const postCallback = async () => {
         const myHeaders = new Headers();
+        myHeaders.append('session-id', sessionId);
         myHeaders.append('Content-Type', 'application/json');
-        myHeaders.append('session-id', localStorage.getItem('sessionId') || '');
+
+        console.log("Code: ", code);
+        console.log("State: ", state);
 
         const raw = JSON.stringify({
           code,
           state,
-          iss,
+          "iss": 'https%3A%2F%2Flogin.inrupt.com',
         });
 
         const requestOptions: RequestInit = {
@@ -32,14 +34,17 @@ export const AuthCallback = () => {
         };
 
         try {
-          const response = await fetch("/api/auth/callback", requestOptions);
-          console.log("Dados recebidos do servidor:", response);
+          const response = await fetch('/api/auth/callback', requestOptions);
+          // const resultText = await response.text();
 
-          // Salva os dados
+          // console.log('Resultado do servidor:', resultText);
+
+          // Armazena os dados localmente
           localStorage.setItem('code', code);
           localStorage.setItem('state', state);
-          localStorage.setItem('iss', iss);
+          localStorage.setItem('iss', 'https%3A%2F%2Flogin.inrupt.com');
 
+          // Redireciona após sucesso
           const redirectPath = localStorage.getItem('redirectAfterLogin') || '/dashboard';
           navigate(redirectPath, { replace: true });
         } catch (error) {
